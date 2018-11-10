@@ -37,13 +37,11 @@ we intend to implement as part of our \textit{COMSM0010 Cloud Computing} coursew
 \section{Idea}
 The application that we intend to develop and deploy in the cloud as part of the coursework for the module 
 \textit{COMSM0010 Cloud Computing} aims to support the analysis of PDF text documents. \\
-
 As university students we are often faced with an abundance of resources regarding specific units or even
 certain topics within a unit. These range from lecture notes or slides to personal notes and additional
 scientific papers as well as e-books or extracts thereof. The first step in the exploration process in this
 case is to familiarise ourselves with these materials, that is to find key aspects and how different sources
 are possibly related. This is what we are hoping to facilitate with our application. \\
-
 More specifically the functionalities of our application include keyword search and tagging, suggestions of
 related documents based on textual analysis and eventually the automated generation of short summaries from
 related documents. The functionality could be extended by the possibility to share insights with other users
@@ -52,14 +50,12 @@ However, in the scope of this project the main focus is on the deployment of our
 Therefore we might not implement all of the aforementioned features and will not focus on optimizing the 
 results of the analysis, but rather develop a prototype application with the potential for further 
 development and extensions. \\
-
 The very rough proposed process for using the application is as follows: This document describes the
 idea, choice of technology, archtitecture, scalability and security measure we intend to implement as
 part of our \textit{COMSM0010 Cloud Computing} coursework project. After logging into the application the user can
 upload one or more documents. These documents are then processed and stored by our application. By applying
 OCR techniques the application ensures that the documents are machine readable. The documents will then
 be analysed and the user will be presented with the outcome of this analysis. \\
-
 Lastly, the general idea of this application is not limited to the use case of university students.
 Any scenario where people are confronted with a large number of different and possibly complex text
 sources could make use of the application, e.g. in the context of information gathering for management
@@ -68,12 +64,11 @@ decisions in the industry.
 \section{Choice of Technology Stack}
 In this section a  preliminary technology stack is introduced. There might be changes to these current
 choices, when the development of the application progresses. \\
-
-The backend of the web application will be written in Python, while React will be used for the frontend.
+The backend of the web application will be written in Python, probably using the Flask Framework, 
+while Vue.js will be used for the frontend.
 For storing the uploaded PDF documents an object storage will be used. Other data, such as account and
 session information or the results of the analysis will be stored and managed through a Mongo DB.
 The application will run in Docker containers orchestrated by Kubernetes. \\
-
 The necessary machine learning tasks for the analysis will be implemented using Keras on top of Tensorflow.
 
 \section{Architecture}
