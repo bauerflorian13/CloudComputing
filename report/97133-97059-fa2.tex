@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage[top=30pt,bottom=35pt,left=48pt,right=46pt]{geometry}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -50,12 +51,14 @@ However, in the scope of this project the main focus is on the deployment of our
 Therefore we might not implement all of the aforementioned features and will not focus on optimizing the 
 results of the analysis, but rather develop a prototype application with the potential for further 
 development and extensions. \\
+
 The very rough proposed process for using the application is as follows: This document describes the
 idea, choice of technology, archtitecture, scalability and security measure we intend to implement as
 part of our \textit{COMSM0010 Cloud Computing} coursework project. After logging into the application the user can
 upload one or more documents. These documents are then processed and stored by our application. By applying
 OCR techniques the application ensures that the documents are machine readable. The documents will then
 be analysed and the user will be presented with the outcome of this analysis. \\
+
 Lastly, the general idea of this application is not limited to the use case of university students.
 Any scenario where people are confronted with a large number of different and possibly complex text
 sources could make use of the application, e.g. in the context of information gathering for management
