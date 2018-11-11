@@ -52,9 +52,7 @@ Therefore we might not implement all of the aforementioned features and will not
 results of the analysis, but rather develop a prototype application with the potential for further 
 development and extensions. \\
 
-The very rough proposed process for using the application is as follows: This document describes the
-idea, choice of technology, archtitecture, scalability and security measure we intend to implement as
-part of our \textit{COMSM0010 Cloud Computing} coursework project. After logging into the application the user can
+The very rough proposed process for using the application is as follows: After logging into the application the user can
 upload one or more documents. These documents are then processed and stored by our application. By applying
 OCR techniques the application ensures that the documents are machine readable. The documents will then
 be analysed and the user will be presented with the outcome of this analysis. \\
@@ -70,7 +68,7 @@ choices, when the development of the application progresses. \\
 The backend of the web application will be written in Python, probably using the Flask Framework, 
 while Vue.js will be used for the frontend.
 For storing the uploaded PDF documents an object storage will be used. Other data, such as account and
-session information or the results of the analysis will be stored and managed through a Mongo DB.
+session information or the results of the analysis will be stored and managed by a Mongo DB.
 The application will run in Docker containers orchestrated by Kubernetes. \\
 The necessary machine learning tasks for the analysis will be implemented using Keras on top of Tensorflow.
 
