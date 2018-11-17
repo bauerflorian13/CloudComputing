@@ -1,7 +1,12 @@
 from flask import Flask, render_template, json
+from flask_pymongo import PyMongo
 
+# init app and database
 app = Flask(__name__)
+app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
+mongo = PyMongo(app)
 
+# provide the websites
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -32,5 +37,7 @@ def test():
         ] }
     return json.dumps(my_dict)
 
+# main method for easy use within the  commandline
 if __name__ == "__main__":
+    # enable debug mode only for developement
     app.run(debug=True)
