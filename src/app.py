@@ -14,6 +14,10 @@ def about():
 def contact():
     return render_template('contact.html')
 
+@app.route('/table')
+def table():
+    return render_template('table.html')
+
 @app.route('/test')
 def test():
     my_dict = { "band" : { "title" : "Mozart" , "genre" : "classic"} }
