@@ -20,7 +20,16 @@ def table():
 
 @app.route('/test')
 def test():
-    my_dict = { "band" : { "title" : "Mozart" , "genre" : "classic"} }
+    my_dict = { "data" : [
+          { "id":1, "name":"John",  "createdAt": '201-10-31:9: 35 am',"keywords": 0.03343 },
+          { "id":2, "name":"Jane",  "createdAt": '2011-10-31', "keywords": 0.03343 },
+          { "id":3, "name":"Susan", "createdAt": '2011-10-30', "keywords": 0.03343 },
+          { "id":4, "name":"Chris", "createdAt": '2011-10-11', "keywords": 0.03343 },
+          { "id":5, "name":"Dan",   "createdAt": '2011-10-21', "keywords": 0.03343 },
+          { "id":6, "name":"John",  "createdAt": '2011-10-31', "keywords": 0.03343 },
+          { "id":7, "name":"Jane",  "createdAt": '2013-09-21' },
+          { "id":8, "name":"Susan", "createdAt": '2013-10-31', "keywords": ["Susan", "Abc"] },
+        ] }
     return json.dumps(my_dict)
 
 if __name__ == "__main__":
