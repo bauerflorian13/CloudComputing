@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="bg-primary text-white" id="upload">
+    <div class="container">
+        <h2 class="text-center text-uppercase text-white">File Upload</h2>
+        <hr class="star-light mb-8">
+        <div class="col-lg-8 mx-auto">
+            <form action="/new" method="POST" id="uploadform">
+                <input type="text" name="name">
+                <input type='text' name="description">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Grid Section -->
+<section class="portfolio" id="portfolio">
+    <div class="container">
+        <h2 class="text-center text-uppercase text-secondary mb-0">Files Overview</h2>
+        <div id="table">
+        <vue-good-table
+            :columns="columns"
+            :rows="rows"
+            :pagination-options="{ enabled: true, perPage: 10}"
+            :search-options="{ enabled: true}"> 
+        </vue-good-table>                  
+        </div>
+    </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.js"></script>
+    <script src="https://unpkg.com/vue-good-table@2.16.0/dist/vue-good-table.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.2.0/vue-resource.js"></script>
+    <script>
+    new Vue({
+    el: '#table',
+    data: {
+        columns: [
+            {
+            label: 'ID',
+            field: 'id',
+            type: 'number',
+            },
+            {
+            label: 'Full Documentname',
+            field: 'name',
+            },
+            {
+            label: 'Uploaded On',
+            field: 'createdAt',
+            type: 'date',
+            dateInputFormat: 'YYYY-MM-DD',
+            dateOutputFormat: 'MMM Do YYYY',
+            },
+            {
+            label: 'Keywords',
+            field: 'keywords',
+            type: 'list'
+            },
+        ],
+        // ignore this errors here probably shown by your IDE - it works !
+        rows: [{% for item in items %}
+                { "id" : "{{ item.id }}",
+                    "name" : "{{ item.name }}",
+                "createdAt" : "{{ item.createdAt }}",
+                "keywords" : "{{ item.keywords }}" },
+        {% endfor %}]
+    },
+});
+</script>
+{% endblock %}

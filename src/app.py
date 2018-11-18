@@ -1,15 +1,23 @@
-from flask import Flask, render_template, json
-from flask_pymongo import PyMongo
+from flask import Flask, render_template, json, redirect, url_for, request
+from pymongo import MongoClient
+from time import gmtime, strftime
+import os
+import sys
+from word_counter import Wordcounter
 
 # init app and database
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
-mongo = PyMongo(app)
+
+client = MongoClient(os.environ['SRC_DB_1_PORT_27017_TCP_ADDR'], 27017)
+db = client.filedb
 
 # provide the websites
 @app.route('/')
 def index():
-    return render_template('index.html')
+
+    _items = db.filedb.find()
+    items = [item for item in _items]
+    return render_template('index.html', items=items)
 
 @app.route('/about')
 def about():
@@ -26,7 +34,7 @@ def table():
 @app.route('/test')
 def test():
     my_dict = { "data" : [
-          { "id":1, "name":"John",  "createdAt": '201-10-31:9: 35 am',"keywords": 0.03343 },
+          { "id":1, "name":"John",  "createdAt": '2012-10-31:9: 35 am',"keywords": 0.03343 },
           { "id":2, "name":"Jane",  "createdAt": '2011-10-31', "keywords": 0.03343 },
           { "id":3, "name":"Susan", "createdAt": '2011-10-30', "keywords": 0.03343 },
           { "id":4, "name":"Chris", "createdAt": '2011-10-11', "keywords": 0.03343 },
@@ -35,9 +43,47 @@ def test():
           { "id":7, "name":"Jane",  "createdAt": '2013-09-21' },
           { "id":8, "name":"Susan", "createdAt": '2013-10-31', "keywords": ["Susan", "Abc"] },
         ] }
+
+    _items = db.filedb.find()
+    items = [item for item in _items]
+    return json.jsonify(items)
     return json.dumps(my_dict)
+    #return json.dumps(items)
+
+# for the db access
+@app.route('/new', methods=['POST'])
+def new():
+
+    wc = Wordcounter()
+    count = wc.count_words(request.form['description'][0])
+    current_time = strftime("%Y-%m-%d-%H:%M:%S", gmtime())
+    if len(count) > 0:
+        top = count[0]
+    else:
+        top = "No Keywords"
+    item_doc = {
+        'id':0,
+        'name': request.form['name'],
+        'createdAt': str(current_time),
+        'description': request.form['description'],
+        'keywords': top
+    }
+
+    db.filedb.insert_one(item_doc)
+
+    return redirect(url_for('upload'))
+
+@app.route('/upload')
+def upload():
+    _items = db.filedb.find()
+    items = [item for item in _items]
+
+    return render_template('upload.html', items=items)
+
+
+
 
 # main method for easy use within the  commandline
 if __name__ == "__main__":
     # enable debug mode only for developement
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
