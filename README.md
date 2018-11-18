@@ -4,6 +4,8 @@ This is a GitHub Repo for our Application for the module COMSM0010 at the Univer
 
 ## Getting started
 
+### Run it native
+
 * Install python3 (version 3.6 or higher)
 * Install python-virtualenv
 * Install pip3 (python3-pip)
@@ -15,3 +17,10 @@ This is a GitHub Repo for our Application for the module COMSM0010 at the Univer
 * open browser and navigate to localhost:5000
 
 **Note:** At the moment this is under developement and the instruction abough may change. So this are more or less just some notes.
+
+### Using Docker
+
+* Install docker and docker-composer (on mac additional boot2docker or similar tool)
+* cd into src/ folder
+* run docker-composer up
+* open browser and navigate to localhost:5000
