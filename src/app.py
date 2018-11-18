@@ -55,10 +55,15 @@ def test():
 def new():
 
     wc = Wordcounter()
-    count = wc.count_words(request.form['description'][0])
+    count = wc.count_words(request.form['description'])
     current_time = strftime("%Y-%m-%d-%H:%M:%S", gmtime())
     if len(count) > 0:
-        top = count[0]
+        if len(count) > 1:
+            top = ""
+            for w in count:
+                top = top + "[" + str(w) + "] "
+        else:
+            top = count[0]
     else:
         top = "No Keywords"
     item_doc = {
