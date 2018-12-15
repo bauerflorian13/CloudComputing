@@ -8,8 +8,9 @@ from word_counter import Wordcounter
 # init app and database
 app = Flask(__name__)
 
-client = MongoClient('mongodb://db:27017')
+client = MongoClient('mongodb://dbccproject:eb6cOAlo7yChycVEr9CXjBp143GAyOaYYEPblrsoEUCbmo26dBWPGc7sKzEjcc2H1Z7yN2PACcvYxh1aemHaaQ==@dbccproject.documents.azure.com:10255/?ssl=true&replicaSet=globaldb')
 db = client.filedb
+#db.authenticate(name="dbccproject", password="eb6cOAlo7yChycVEr9CXjBp143GAyOaYYEPblrsoEUCbmo26dBWPGc7sKzEjcc2H1Z7yN2PACcvYxh1aemHaaQ==")
 
 # provide the websites
 @app.route('/')
