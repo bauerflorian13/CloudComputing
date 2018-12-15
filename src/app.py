@@ -8,7 +8,7 @@ from word_counter import Wordcounter
 # init app and database
 app = Flask(__name__)
 
-client = MongoClient(os.environ['SRC_DB_1_PORT_27017_TCP_ADDR'], 27017)
+client = MongoClient('mongodb://db:27017')
 db = client.filedb
 
 # provide the websites
