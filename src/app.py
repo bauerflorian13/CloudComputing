@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 client = MongoClient('mongodb://dbccproject:eb6cOAlo7yChycVEr9CXjBp143GAyOaYYEPblrsoEUCbmo26dBWPGc7sKzEjcc2H1Z7yN2PACcvYxh1aemHaaQ==@dbccproject.documents.azure.com:10255/?ssl=true&replicaSet=globaldb')
 db = client.filedb
-#db.authenticate(name="dbccproject", password="eb6cOAlo7yChycVEr9CXjBp143GAyOaYYEPblrsoEUCbmo26dBWPGc7sKzEjcc2H1Z7yN2PACcvYxh1aemHaaQ==")
 
 # provide the websites
 @app.route('/')
@@ -31,25 +30,6 @@ def contact():
 @app.route('/table')
 def table():
     return render_template('table.html')
-
-@app.route('/test')
-def test():
-    my_dict = { "data" : [
-          { "id":1, "name":"John",  "createdAt": '2012-10-31:9: 35 am',"keywords": 0.03343 },
-          { "id":2, "name":"Jane",  "createdAt": '2011-10-31', "keywords": 0.03343 },
-          { "id":3, "name":"Susan", "createdAt": '2011-10-30', "keywords": 0.03343 },
-          { "id":4, "name":"Chris", "createdAt": '2011-10-11', "keywords": 0.03343 },
-          { "id":5, "name":"Dan",   "createdAt": '2011-10-21', "keywords": 0.03343 },
-          { "id":6, "name":"John",  "createdAt": '2011-10-31', "keywords": 0.03343 },
-          { "id":7, "name":"Jane",  "createdAt": '2013-09-21' },
-          { "id":8, "name":"Susan", "createdAt": '2013-10-31', "keywords": ["Susan", "Abc"] },
-        ] }
-
-    _items = db.filedb.find()
-    items = [item for item in _items]
-    return json.jsonify(items)
-    return json.dumps(my_dict)
-    #return json.dumps(items)
 
 # for the db access
 @app.route('/new', methods=['POST'])
@@ -85,9 +65,6 @@ def upload():
     items = [item for item in _items]
 
     return render_template('upload.html', items=items)
-
-
-
 
 # main method for easy use within the  commandline
 if __name__ == "__main__":
