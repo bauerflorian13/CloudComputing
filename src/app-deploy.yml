@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: textanalytics
 spec:
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
@@ -26,7 +26,6 @@ spec:
   ports:
     - port: 5000
       targetPort: 5000
-      nodePort: 32000
       name: http
   type: NodePort
   selector:
