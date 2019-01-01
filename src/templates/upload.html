@@ -6,11 +6,11 @@
         <h2 class="text-center text-uppercase text-white">Text Upload</h2>
         <hr class="star-light mb-8">
         <div class="col-lg-8 mx-auto">
-            <form action="/new" method="POST" id="uploadform">
+            <form action="/new" method="POST" id="uploadform" enctype="multipart/form-data">
                 <label for="name">filename:</label>
                 <input type="text" name="name" id="name">
                 <label for="file">file:</label>
-                <input type='text' name="file" id="file">
+                <input type="file" name="file" id="file" accept=".txt">
                 <input type="submit">
             </form>
         </div>
