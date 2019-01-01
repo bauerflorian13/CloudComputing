@@ -7,8 +7,10 @@
         <hr class="star-light mb-8">
         <div class="col-lg-8 mx-auto">
             <form action="/new" method="POST" id="uploadform">
-                <input type="text" name="name">
-                <input type='text' name="description">
+                <label for="name">filename:</label>
+                <input type="text" name="name" id="name">
+                <label for="file">file:</label>
+                <input type='text' name="file" id="file">
                 <input type="submit">
             </form>
         </div>
