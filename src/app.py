@@ -34,9 +34,11 @@ def table():
 # for the db access
 @app.route('/new', methods=['POST'])
 def new():
-
+    upload_file = request.files['file']
+    output = str(upload_file.read())
+    
     wc = Wordcounter()
-    count = wc.count_words(request.form['description'])
+    count = wc.count_words(output) #request.form['description']
     current_time = strftime("%Y-%m-%d-%H:%M:%S", gmtime())
     if len(count) > 0:
         if len(count) > 1:
@@ -51,7 +53,7 @@ def new():
         'id':0,
         'name': request.form['name'],
         'createdAt': str(current_time),
-        'description': request.form['description'],
+        'description': output,
         'keywords': top
     }
 
