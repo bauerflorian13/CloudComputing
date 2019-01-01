@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: textanalytics
-          image: nathaliepett/textanalytics
+          image: bauerflorian/textanalytics
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
