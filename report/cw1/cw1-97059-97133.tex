@@ -1,0 +1,129 @@
+\documentclass[conference]{IEEEtran}
+% \IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Text Analytica\\}
+
+\author{\IEEEauthorblockN{Florian Bauer}
+\IEEEauthorblockA{\textit{Department of Computer Science} \\
+\textit{University of Bristol}\\
+Bristol, United Kingdom \\
+ya18048@bristol.ac.uk}
+\and
+\IEEEauthorblockN{Nathalie Pett}
+\IEEEauthorblockA{\textit{Department of Computer Science} \\
+\textit{University of Bristol}\\
+Bristol, United Kingdom \\
+aq18034@bristol.ac.uk}
+}
+
+\maketitle
+
+\begin{abstract}
+The application can be run online at http://textanalytics.lukaspman.io/.
+\end{abstract}
+
+\section{Introduction}
+\begin{itemize}
+	\item general introduction and overview over report
+\end{itemize}
+
+\subsection{Concept}
+\begin{itemize}
+	\item summarize concept and idea from FA2
+\end{itemize}
+
+\subsection{Limitations of the submitted prototype}
+\begin{itemize}
+	\item explain what we actually implemented and how it is different from the proposed application in FA2 (point to section about improvements)
+\end{itemize}
+
+\section{Platform choice}
+The considerations detailed below led to choosing to work with Microsoft Azure to remain within the given time scope for the coursework.
+\subsection{Setup}
+\begin{itemize}
+	\item technical issues with Oracle: unintuitive UI (add contributor), service limits
+\end{itemize}
+
+\subsection{Documentation and support}
+\begin{itemize}
+	\item more documentation
+	\item more community support
+\end{itemize}
+
+\section{System architecture}
+\subsection{Infrastructure}
+\begin{itemize}
+	\item container and Kubernetes (IaaS)
+\end{itemize}
+ 
+\subsection{Data storage}
+\begin{itemize}
+	\item CosmosDB (PaaS); similar to MongoDB: high availability, scaling, ...
+\end{itemize}
+
+\subsection{Microservices}
+\begin{itemize}
+	\item Flask and 3rd party
+	\item REST API between front end and back end,  services (back end, analysis, front end)
+\end{itemize}
+
+\subsection{Infrastructure as code}
+\begin{itemize}
+	\item infrastructure can be deployed from a template automatically
+\end{itemize}
+
+\section{Scalability}
+\subsection{Infrastructure}
+\begin{itemize}
+	\item Kubernetes and Virtual Node
+\end{itemize}
+
+\subsection{Data storage}
+\begin{itemize}
+	\item PaaS and other region
+\end{itemize}
+
+\subsection{Service}
+\begin{itemize}
+	\item container and microservices
+\end{itemize}
+
+\subsection{Load Testing}
+\begin{itemize}
+	\item include some evidence on how our application scales
+\end{itemize}
+
+\section{Future improvements}
+\subsection{Infrastructure}
+\begin{itemize}
+	\item serverless (Lambda, Azure functions),  PaaS
+\end{itemize}
+
+\subsection{Service}
+\begin{itemize}
+	\item add functionality (login, pdf, text recognition, more advanced analysis, save files and retrieve them, ...)
+	\item better scoping of microservices
+	\item use of more Kubernetes functionalities
+\end{itemize}
+
+\subsection{Monitoring}
+\begin{itemize}
+	\item advanced cloud monitoring
+\end{itemize}
+
+\section{Conclusion}
+conclusion...
+
+\section*{References}
+
+\end{document}
