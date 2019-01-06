@@ -11,7 +11,7 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Text Analytica\\}
+\title{Text Analytica: cloud-based document analysis\\}
 
 \author{\IEEEauthorblockN{Florian Bauer}
 \IEEEauthorblockA{\textit{Department of Computer Science} \\
@@ -33,16 +33,18 @@ The application can be run online at http://textanalytics.lukaspman.io/.
 \end{abstract}
 
 \section{Introduction}
-\begin{itemize}
-	\item general introduction and overview over report
-\end{itemize}
+Text Analytica is a cloud-based application which aims to support the analysis of text documents. For the purpose of this coursework a prototype has been developed and deployed using different cloud computing technologies. In the remainder of this section, the general concept behind Text Analytica is discussed as well as the limitations of the implemented prototype. The second section of this report explores the reasons behind choosing Microsoft’s cloud services over Oracle’s. Afterwards the system architecture and technologies used for the project are explained in more detail. The scalability of the developed solution is addressed in section four, including evidence of the performance of the service under load. Lastly future improvements of the application are proposed.
 
-\subsection{Concept}
-\begin{itemize}
-	\item summarize concept and idea from FA2
-\end{itemize}
+\subsection{Vision}
+University students are often faced with an abundance of resources regarding specific units or even certain topics within a unit. These range from lecture notes or slides to personal notes and additional scientific papers as well as e-books or extracts thereof. The first step in the exploration process is for students to familiarise themselves with these materials by identifying the documents’ key aspects and discovering links between different sources. This is what Text Analytica ultimately aims to facilitate.
+
+More specifically the functionalities of Text Analytica could include tagging, keyword search, suggestions of related documents based on textual analysis and eventually the generation of short summaries, all based on user-supplied PDF documents. These functionalities render Text Analytica a useful tool for a large number of scenarios in which people are confronted with many different and possibly complex text sources, e.g. in the context of management decisions in industry or business / commerce.
 
 \subsection{Limitations of the submitted prototype}
+The focus of this coursework assignment was to deploy an application using different cloud services and explore its scalability. Therefore the functionality of the submitted Text Analytica prototype was stripped down to a minimum.
+
+To skip the step of extracting machine readable text from PDFs by applying OCR techniques, currently users are only able to upload simple .txt documents. These files are then parsed and analysed. At this point the analysis merely tags the system entries with the three most used words in the text.Additionally the user account and login functionality has not yet been implemented.
+
 \begin{itemize}
 	\item explain what we actually implemented and how it is different from the proposed application in FA2 (point to section about improvements)
 \end{itemize}
