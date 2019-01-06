@@ -3,7 +3,7 @@
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
+% \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
@@ -43,7 +43,7 @@ More specifically the functionalities of Text Analytica could include tagging, k
 \subsection{Limitations of the submitted prototype}
 The focus of this coursework assignment was to deploy an application using different cloud services and explore its scalability. Therefore the functionality of the submitted Text Analytica prototype was stripped down to a minimum.
 
-To skip the step of extracting machine readable text from PDFs by applying OCR techniques, currently users are only able to upload simple .txt documents. These files are then parsed and analysed. At this point the analysis merely tags the system entries with the three most used words in the text. As the current state of analysis functionality does not require the files to be stored within the application, they are discarded after being processed. Additionally the user account and login functionality has not yet been implemented. 
+To skip the step of extracting machine readable text from PDFs by applying OCR techniques, currently users are only able to upload simple .txt documents. These files are then parsed and analysed. At this point the analysis merely tags the system entries with the three most used words in the text. As the current state of analysis functionality does not require the files to be stored within the application, they are discarded after being processed. Additionally the user account and login functionality has not yet been implemented.
 
 \begin{itemize}
 	\item explain what we actually implemented and how it is different from the proposed application in FA2 (point to section about improvements)
@@ -67,7 +67,7 @@ The considerations detailed below led to choosing to work with Microsoft Azure t
 \begin{itemize}
 	\item container and Kubernetes (IaaS)
 \end{itemize}
- 
+
 \subsection{Data storage}
 \begin{itemize}
 	\item CosmosDB (PaaS); similar to MongoDB: high availability, scaling, ...
