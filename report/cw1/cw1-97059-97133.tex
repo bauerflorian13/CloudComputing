@@ -3,6 +3,12 @@
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+
+
+\usepackage{hyperref}
+%\usepackage[ngerman]{cleveref}
+\usepackage[english]{cleveref}
+
 % \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
@@ -30,6 +36,7 @@ aq18034@bristol.ac.uk}
 
 \begin{abstract}
 The application can be run online at http://textanalytics.lukaspman.io/.
+The source code is available at https://github.com/darkcookie298/CloudComputing.
 \end{abstract}
 
 \section{Introduction}
@@ -55,6 +62,11 @@ The considerations detailed below led to choosing to work with Microsoft Azure t
 \begin{itemize}
 	\item technical issues with Oracle: unintuitive UI (add contributor), service limits
 \end{itemize}
+
+At first we tried to use the Oracle Cloud and to build and maintain a kubernetes cluster we wanted to use the Terraform command
+line tool. This was the recommended way we got from the tutorials in class from the Orcale Team.
+After a long period of installing all needed tools e.g. \textit{Terraform} itself, \textit{Terraform Provider},
+\textit{Terraform Kubernetes Installer for Oracle Cloud} \cite{TerrafromK8sInstaller}.
 
 \subsection{Documentation and support}
 \begin{itemize}
@@ -132,6 +144,10 @@ The considerations detailed below led to choosing to work with Microsoft Azure t
 \section{Conclusion}
 conclusion...
 
-\section*{References}
+\bibliographystyle{acm}
+
+%\nocite{*}
+\bibliography{cw1-97059-97133}
+
 
 \end{document}
