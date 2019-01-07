@@ -66,9 +66,20 @@ The considerations detailed below led to choosing to work with Microsoft Azure t
 At first we tried to use the Oracle Cloud and to build and maintain a kubernetes cluster we wanted to use the Terraform command
 line tool. This was the recommended way we got from the tutorials in class from the Orcale Team.
 After a long period of installing all needed tools e.g. \textit{Terraform} itself, \textit{Terraform Provider},
-\textit{Terraform Kubernetes Installer for Oracle Cloud} \cite{TerrafromK8sInstaller}.
+\textit{Terraform Kubernetes Installer for Oracle Cloud} \cite{TerrafromK8sInstaller}, we tried to create an easy example cluster.
+But already at this point we run into service limits. These limits are restrictions on how many instances of a specific resource you are
+allowed to use. To increase the limit you have to open a ticket request and than after a few days there will be an Oracle support guy
+helping you. As the ticket request system is very inconvienient and complicated, and the whole process takes several days this is a very strong
+disadvantage of the \textbf{Oracle Cloud} in comparison to \textbf{Microsoft's Azure}.
 
 \subsection{Documentation and support}
+An even bigger advantage of using one of \textit{"the big three"}, so Google Cloud, Amazon AWS or Microsoft Azure, is there are
+a lot of tutorials, answered questions on \textit{Stackoverflow},etc and better documentations. Respectively using Oracle leads to
+a very small number of tutorials, which is one of the reasons why it is more difficult for beginners. There were a lot of errors, too,
+but searching for solutions of our problems with Terraform and Oracle Cloud was very unsuccessfull.
+So after increasing the service limits and running in errors again and again, we got to a point, where we decided to switch to Azure.
+In retrospect this was one of our best decisions of the whole project.
+ 
 \begin{itemize}
 	\item more documentation
 	\item more community support
