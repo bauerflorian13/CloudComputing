@@ -2,6 +2,12 @@
 ## Description of the project
 This is a GitHub Repo for our Application for the module COMSM0010 at the University of Bristol in 2018.
 
+## Running web service
+Have a look at http://textanalytics.lukaspman.io/ .
+At the moment the project respectively the kubernetes cluster is hosted by Microsoft Azure.
+
+## Deprecated README can be seen below
+
 ## Getting started
 
 ### Run it native
