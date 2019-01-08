@@ -40,7 +40,8 @@ The source code is available at https://github.com/darkcookie298/CloudComputing.
 \end{abstract}
 
 \section{Introduction}
-Text Analytica is a cloud-based application which aims to support the analysis of text documents. For the purpose of this coursework a prototype has been developed and deployed using different cloud computing technologies. In the remainder of this section, the general concept behind Text Analytica is discussed as well as the limitations of the implemented prototype. The second section of this report explores the reasons behind choosing Microsoft’s cloud services over Oracle’s. Afterwards the system architecture and technologies used for the project are explained in more detail. The scalability of the developed solution is addressed in section four, including evidence of the performance of the service under load. Lastly future improvements of the application are proposed.
+\label{sec:intro}
+Text Analytica is a cloud-based application which aims to support the analysis of text documents. For the purpose of this coursework a prototype has been developed and deployed using different cloud computing technologies. In the remainder of this \cref{sec:intro}, the general concept behind Text Analytica is discussed as well as the limitations of the implemented prototype. The \cref{sec:platform-choice} of this report explores the reasons behind choosing Microsoft’s cloud services over Oracle’s. Afterwards in \cref{sec:system-architecture} the system architecture and technologies used for the project are explained in more detail. The scalability of the developed solution is addressed in \cref{sec:scalability}, including evidence of the performance of the service under load. Lastly, in \cref{sec:future-improvments}, future improvements of the application are proposed.
 
 \subsection{Vision}
 University students are often faced with an abundance of resources regarding specific units or even certain topics within a unit. These range from lecture notes or slides to personal notes and additional scientific papers as well as e-books or extracts thereof. The first step in the exploration process is for students to familiarise themselves with these materials by identifying the documents’ key aspects and discovering links between different sources. This is what Text Analytica ultimately aims to facilitate.
@@ -57,6 +58,7 @@ To skip the step of extracting machine readable text from PDFs by applying OCR t
 \end{itemize}
 
 \section{Platform choice}
+\label{sec:platform-choice}
 The considerations detailed below led to choosing to work with Microsoft Azure to remain within the given time scope for the coursework.
 \subsection{Setup}
 \begin{itemize}
@@ -115,6 +117,7 @@ In retrospect this was one of our best decisions of the whole project.
 \end{itemize}
 
 \section{Scalability}
+\label{sec:scalability}
 \subsection{Infrastructure}
 As mentioned in \cref{sec:system-architecture} all services are managed by the Kubernetes cluster.
 The main advantage of using a Kubernetes cluster is scailability and loadbalancing. So if there is a high usage of the
@@ -143,6 +146,7 @@ than with the pure Kubernetes cluster itself. This is due to the fact we do not 
 \end{itemize}
 
 \section{Future improvements}
+\label{sec:future-improvments}
 \subsection{Infrastructure}
 \begin{itemize}
 	\item serverless (Lambda, Azure functions),  PaaS
@@ -161,6 +165,7 @@ than with the pure Kubernetes cluster itself. This is due to the fact we do not 
 \end{itemize}
 
 \section{Conclusion}
+\label{sec:conclusion}
 conclusion...
 
 \bibliographystyle{acm}
