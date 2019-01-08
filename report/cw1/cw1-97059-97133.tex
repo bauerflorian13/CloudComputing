@@ -79,7 +79,7 @@ a very small number of tutorials, which is one of the reasons why it is more dif
 but searching for solutions of our problems with Terraform and Oracle Cloud was very unsuccessfull.
 So after increasing the service limits and running in errors again and again, we got to a point, where we decided to switch to Azure.
 In retrospect this was one of our best decisions of the whole project.
- 
+
 \begin{itemize}
 	\item more documentation
 	\item more community support
@@ -92,6 +92,7 @@ In retrospect this was one of our best decisions of the whole project.
 \end{itemize}
 
 \section{System architecture}
+\label{sec:system-architecture}
 \subsection{Infrastructure}
 \begin{itemize}
 	\item container and Kubernetes (IaaS)
@@ -115,9 +116,15 @@ In retrospect this was one of our best decisions of the whole project.
 
 \section{Scalability}
 \subsection{Infrastructure}
-\begin{itemize}
-	\item Kubernetes and Virtual Node
-\end{itemize}
+As mentioned in \cref{sec:system-architecture} all services are managed by the Kubernetes cluster.
+The main advantage of using a Kubernetes cluster is scailability and loadbalancing. So if there is a high usage of the
+existing ressources the cluster can scale up by itself. In our case this might happen at peak times when a lot of people
+are using the Text Analytica webservice. Than the cluster creates more (TODO:  describe more carefully what exactly happens here)
+\cite{MicrosoftAzureKubernetesService}.
+
+As we are using the Azure specific option of \textit{Virtual Nodes}, we can achieve even faster up- and downscaling times
+than with the pure Kubernetes cluster itself. This is due to the fact we do not need to wait on new VMs or container booting up (TODO: check this).
+\cite{MicrosoftVirtualNode}.
 
 \subsection{Data storage}
 \begin{itemize}
@@ -126,12 +133,13 @@ In retrospect this was one of our best decisions of the whole project.
 
 \subsection{Service}
 \begin{itemize}
-	\item container and microservices
+	\item container and microservices -> why is this important for scalability?!
 \end{itemize}
 
-\subsection{Load Testing}
+\subsection{Monitoring and Load Testing}
 \begin{itemize}
 	\item include some evidence on how our application scales
+	\item maybe show screenshots and explain functionality of kubernetes dashboard
 \end{itemize}
 
 \section{Future improvements}
