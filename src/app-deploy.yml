@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: textanalytics
-          image: nathaliepett/textanalytics
+          image: bauerflorian/textanalytics
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -22,7 +22,7 @@ spec:
               memory: "64Mi"
               cpu: "250m"
             limits:
-              memory: "128Mi"
+              memory: "256Mi"
               cpu: "500m"
 ---
 apiVersion: v1
