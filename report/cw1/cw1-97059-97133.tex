@@ -35,8 +35,7 @@ aq18034@bristol.ac.uk}
 \maketitle
 
 \begin{abstract}
-The application can be run online at http://textanalytics.lukaspman.io/.
-The source code is available at https://github.com/darkcookie298/CloudComputing.
+The source code is available at https://github.com/darkcookie298/CloudComputing. The application can be run online at http://textanalytica.lukaspman.io/.
 \end{abstract}
 
 \section{Introduction}
@@ -100,28 +99,35 @@ In retrospect this was one of our best decisions of the whole project.
 	\item TODO add other more 'small' advantages
 \end{itemize}
 
-\section{System architecture}
+\section{System architecture and service implementation}
 \label{sec:system-architecture}
+Figure x [add figure description] shows the architecture of the implemented system, which is discussed in the first two parts of this section in more detail. Text Analytica’s two main components are a Kubernetes cluster, managed by the Azure Kubernetes Service (AKS) [https://docs.microsoft.com/de-de/azure/aks/intro-kubernetes] and an Azure Cosmos DB [https://docs.microsoft.com/de-de/azure/cosmos-db/introduction], storing the results of the analysis. In the last part of this section, the service, its underlying code and the continuous integration pipeline used to deploy the application are presented.
+
 \subsection{Infrastructure}
-\begin{itemize}
-	\item container and Kubernetes (IaaS)
-\end{itemize}
+Text Analytica’s front-end, back-end and analysis service are currently run within a single Docker container. Container orchestration is handled by a Kubernetes cluster managed by AKS, where each container is encapsulated by a Kubernetes pod. When a new pod is started up the corresponding container is created from a container image pulled from the container registry Docker Hub [https://hub.docker.com].
+
+The Kubernetes master node, responsible for the cluster operation, is fully managed by AKS. In addition to the master node the cluster consists of two worker nodes. The first one is based on a general purpose Linux VM, while the second is implemented as a virtual node based on Azure Container Instances (ACIs) [https://docs.microsoft.com/en-us/azure/container-instances/container-instances-overview] and the Virtual Kubelet open source project [https://github.com/virtual-kubelet/virtual-kubelet, https://github.com/virtual-kubelet/virtual-kubelet/blob/master/providers/azure/README.md]. Kubernetes treats the ACIs compromising the virtual node like standard nodes, so new pods can simply be provisioned on them. Based on container images, ACIs are ready to use in a few seconds as no virtual machines have to be started up and managed by the user. In terms of service level they could be described as “containers-as-a-service”.
+
+The cluster is monitored using Azure Monitor [https://docs.microsoft.com/en-us/azure/azure-monitor/overview], a collection of tools to monitor, query and log services and infrastructure running on Azure. It monitors the health of the cluster itself, its nodes and the running services and containers. 
+
+To make the pods containing the containerised application available to the public several network measures are in place [https://docs.microsoft.com/de-de/azure/aks/concepts-network, https://blog.jreypo.io/containers/microsoft/azure/cloud/cloud-native/how-to-expose-your-kubernetes-workloads-on-azure/]. First, a Kubernetes service of type NodePort has been created to allow access to the pods via IP address or DNS name and port. To expose the services of Text Analytica for external access an ingress service was used. Next to application level load balancing – which at this point is not necessary for Text Analytica, as its services still all run within a single container – ingress can for example be used for SSL / TLS termination. Next to the ingress service an NGINX ingress controller is deployed as a pod to each node. The ingress service is of type LoadBalancer, which leads Azure to create and configure an Azure Load Balancer resource with a corresponding external IP address.
 
 \subsection{Data storage}
-\begin{itemize}
-	\item CosmosDB (PaaS); similar to MongoDB: high availability, scaling, ...
-\end{itemize}
+As mentioned in [section limitations] currently the only user data stored by Text Analytica are the results of the analysis and related metadata. This data is combined into a json object and sent to the Cosmos DB.
 
-\subsection{Microservices}
-\begin{itemize}
-	\item Flask and 3rd party
-	\item REST API between front end and back end,  services (back end, analysis, front end)
-\end{itemize}
+Cosmos DB is a “globally-distributed, multi-model database” [https://docs.microsoft.com/de-de/azure/cosmos-db/introduction]. It was chosen for this project, because it is very easy to set up from the Azure portal, is fully managed and scaled by Azure and can be treated like a MongoDB in development using an API [https://docs.microsoft.com/de-de/azure/cosmos-db/mongodb-introduction].
 
-\subsection{Infrastructure as code}
-\begin{itemize}
-	\item infrastructure can be deployed from a template automatically
-\end{itemize}
+To provide persistent storage not affected by dying and restarting containers, the database is decoupled from the Kubernetes cluster.
+
+The data in the database is shielded from unwanted access, as it is only accessible from the virtual network in which the Kubernetes cluster is hosted.
+
+\subsection{Service implementation}
+•	Front-end built from template using vue.js and bootstrap [https://startbootstrap.com/template-overviews/freelancer/]
+
+•	Backend built with Python using the Flask framework based on several tutorials
+
+•	We used Azure Devops to setup a contious delivery pipeline to adapt the concept of DevOps. If new code is pushed to the git repository of text analytica, then a new docker container is built automatically and pushed to the docker hub registry. Afterwards the updated containers are applied onto the AKS cluster. The described steps are performed by an Azure pipeline, a service of Azure devops to create build pipelines.
+
 
 \section{Scalability}
 \label{sec:scalability}
@@ -155,21 +161,20 @@ than with the pure Kubernetes cluster itself. This is due to the fact we do not 
 \section{Future improvements}
 \label{sec:future-improvments}
 \subsection{Infrastructure}
-\begin{itemize}
-	\item serverless (Lambda, Azure functions),  PaaS
-\end{itemize}
+•	Split up microservices, front-end, back-end and analysis into separate containers, this would also allow for ingress to act as an application layer load balancer directing incoming traffic to the right service
 
-\subsection{Service}
-\begin{itemize}
-	\item add functionality (login, pdf, text recognition, more advanced analysis, save files and retrieve them, ...)
-	\item better scoping of microservices
-	\item use of more Kubernetes functionalities
-\end{itemize}
+•	Another possibility would be to go serverless, that is using PaaS and tools like Azure functions
 
-\subsection{Monitoring}
-\begin{itemize}
-	\item advanced cloud monitoring
-\end{itemize}
+•	Improve management of the kubernetes cluster by using popular open source projects like Istio.
+
+\subsection{Service implementation}
+•	Solve small bugs like missing ID in display
+
+•	Add functionality like login, pdf, text recognition, more advanced analysis, save files and retrieve them, ... 
+
+•	Add / consider security measures, as of now there has been no focus on this
+
+•	Extend the existing Contious Delivery Pipeline and add test and dev stages to it.
 
 \section{Conclusion}
 \label{sec:conclusion}
