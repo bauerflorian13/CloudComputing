@@ -144,14 +144,19 @@ than with the pure Kubernetes cluster itself. This is due to the fact we do not 
 \cite{MicrosoftVirtualNode}.
 
 \subsection{Data storage}
-\begin{itemize}
-	\item PaaS and other region
-\end{itemize}
+The cloud application Text Analytica uses as storage an instance of Azure's \textit{Cosmos DB}. In the following part of this section we are discussing the scalability and consequently the regions and kinds of partitions of this database and what this means for our application.
+
+There are two kinds of partitioning in \textit{Comsos DB}: The logical partition, where all datasets or elements in a container have a similar property. Here the data itself and the data throughput is automatically, horizontaly partitioned and scaled by Cosmos DB. Then there are the physical partitions. A number of logical partitions are assigned to one physical partition, which guarantees percistency and concistency of the data \cite{CosmosDBHorScal}.
+
+It is possible to configure \textit{Cosmos DB} with multiple regions, which leads to a high availability as well (up to $99,999\%$)\cite{CosmosDBHA}.
 
 \subsection{Service}
-\begin{itemize}
-	\item container and microservices -> why is this important for scalability?!
-\end{itemize}
+One of the main advantages using microservices is the opportunity of containerizing them. So you create and build for each microservices its own container. These containers you can create and also delete very fast and as you need them.
+In terms of scalability this is a nice way adjusting the number of containers/services on demand.
+This workflow of creating more containers if there are more needed is called \textit{horizontal scaling}. To manage this autoscaling for microservices container orchestration tools are used; in our case this is \textit{Kubernetes}.
+\cite{GuideContainerClusters}
+\cite{KubernetesScaling}
+\cite{KubernetesAutoscaler}
 
 \subsection{Monitoring and Load Testing}
 To know how good a cloud application scales with an increasing amount of work respectively more users a load test is perfect for. We used the \textit{Azure Loadtest}, as this is an inbuild tool of the Azure Cloud Services and works efficiently for our usecase.
