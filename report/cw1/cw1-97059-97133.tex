@@ -109,14 +109,14 @@ To make the pods containing the containerized application available to the publi
 \subsection{Data storage}
 As mentioned in [section limitations] currently the only user data stored by Text Analytica are the results of the analysis and related metadata. This data is combined into a json object and sent to the Cosmos DB.
 
-Cosmos DB is a “globally-distributed, multi-model database” [https://docs.microsoft.com/de-de/azure/cosmos-db/introduction]. It was chosen for this project, because it is very easy to set up from the Azure portal, is fully managed and scaled by Azure and can be treated like a MongoDB in development using an API [https://docs.microsoft.com/de-de/azure/cosmos-db/mongodb-introduction].
+Cosmos DB is a “globally-distributed, multi-model database” \cite{CosmosDB}. It was chosen for this project, because it is very easy to set up from the Azure portal, is fully managed and scaled by Azure and can be treated like a MongoDB in development using an API \cite{CosmosMongoDB}.
 
 To provide persistent storage not affected by dying and restarting containers, the database is decoupled from the Kubernetes cluster.
 
 The data in the database is shielded from unwanted access, as it is only accessible from the virtual network in which the Kubernetes cluster is hosted.
 
 \subsection{Service implementation}
-•	Front-end built from template using vue.js and bootstrap [https://startbootstrap.com/template-overviews/freelancer/]
+•	Front-end built from template using vue.js and bootstrap \cite{Bootstrap}.
 
 •	Backend built with Python using the Flask framework based on several tutorials
 
@@ -166,7 +166,7 @@ In \Cref{img:loadtesting} are the results of one of our load tests. In the figur
 A useful tool for monitoring the Kubernetes cluster is the \textit{Kubernetes Dashboard}, which can be seen in \Cref{img:kubernetes-dashboard}. Here all important resources can be watched , e.g. number of working pods, CPU usage and memory usage. For debugging and in case of errors this tool can be really helpful.
 
 \section{Future improvements}
-\label{sec:future-improvments}
+\label{sec:future-improvements}
 \subsection{Infrastructure}
 •	Split up microservices, front-end, back-end and analysis into separate containers, this would also allow for ingress to act as an application layer load balancer directing incoming traffic to the right service
 
