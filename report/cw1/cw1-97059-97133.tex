@@ -54,6 +54,7 @@ University students are often faced with an abundance of resources regarding spe
 More specifically the functionalities of Text Analytica could include tagging, keyword search, suggestions of related documents based on textual analysis and eventually the generation of short summaries, all based on user-supplied PDF documents. These functionalities render Text Analytica a useful tool for a large number of scenarios in which people are confronted with many different and possibly complex text sources, e.g. in the context of management decisions in industry or business / commerce.
 
 \subsection{Limitations of the submitted prototype}
+\label{subsec:limits}
 The focus of this coursework assignment was to deploy an application using different cloud services and explore its scalability. Therefore the functionality of the submitted Text Analytica prototype was stripped down to a minimum.
 
 To skip the step of extracting machine readable text from PDFs by applying OCR techniques, currently users are only able to upload simple .txt documents. These files are then parsed and analyzed. At this point the analysis merely tags the system entries with the three most used nouns in the text. As the current state of analysis functionality does not require the files to be stored within the application (TODO: actually at the moment the whole text is stored in the db), they are discarded after being processed. Additionally the user account and login functionality has not yet been implemented.
@@ -68,7 +69,7 @@ The considerations detailed below led to choosing to work with \textit{Microsoft
 
 \subsection{Setup}
 \label{subsec:setup}
-At first we tried to use the \textit{Oracle Cloud} and to build and maintain a Kubernetes cluster we wanted to use the \textit{Terraform} command line tool. This was the recommended way we got from the Oracle's Team tutorials in class and for this we had an amount of $3500£$ free credits for the \textit{Oracle Cloud}.
+At first we tried to use the \textit{Oracle Cloud} and to build and maintain a Kubernetes cluster we wanted to use the \textit{Terraform} command line tool. This was the recommended way we got from the Oracle's Team tutorials in class and for this we had an amount of $3500\pounds$ free credits for the \textit{Oracle Cloud}.
 After a long period of installing all needed tools e.g. \textit{Terraform} itself, \textit{Terraform Provider OCI}\cite{TerraformProviderOCI}, \textit{Terraform Kubernetes Installer for Oracle Cloud} \cite{TerrafromK8sInstaller}, we tried to create an easy example cluster.
 But already at this point we run into service limits. These limits are restrictions on how many instances of a specific resource in a zone you are allowed to use. To increase the limit you have to open a ticket request and after a few days there will be an Oracle support guy helping you. As the ticket request system is very inconvenient and complicated, and the whole process takes several days this is a very strong
 disadvantage of the \textit{Oracle Cloud} in comparison to \textit{Microsoft's Azure}.
@@ -98,18 +99,19 @@ Finally there is a bigger community and probably more jobs for the Azure Cloud S
 \end{figure*}
 
 \subsection{Infrastructure}
+\label{subsec:infra}
 Text Analytica’s front-end, back-end and analysis service are currently run within a single Docker container. Container orchestration is handled by a Kubernetes cluster managed by AKS, where each container is encapsulated by a Kubernetes pod. When a new pod is started up the corresponding container is created from a container image pulled from the container registry \textit{Docker Hub}\cite{DockerHub}.
 
 The Kubernetes master node, responsible for the cluster operation, is fully managed by AKS. In addition to the master node the cluster consists of two worker nodes. The first one is based on a general purpose Linux VM, while the second is implemented as a virtual node based on \textit{Azure Container Instances (ACIs)} \cite{AzureContainerInstances} and the \textit{Virtual Kubelet open source project} \cite{VirtualKubelet} \cite{VirtualKubeletGithub}. Kubernetes treats the ACIs compromising the virtual node like standard nodes, so new pods can simply be provisioned on them. Based on container images, ACIs are ready to use in a few seconds as no virtual machines have to be started up and managed by the user. In terms of service level they could be described as \textit{“containers-as-a-service”}.
 
-The cluster is monitored using Azure Monitor \cite{AzureMonitor}, a collection of tools to monitor, query and log services and infrastructure running on Azure. It monitors the health of the cluster itself, its nodes and the running services and containers.
+The cluster is monitored using \textit{Azure Monitor} \cite{AzureMonitor}, a collection of tools to monitor, query and log services and infrastructure running on Azure. It monitors the health of the cluster itself, its nodes and the running services and containers.
 
-To make the pods containing the containerized application available to the public several network measures are in place \cite{AKSNetworks} \cite{AzureExposeKubernetesCluster}. First, a Kubernetes service of type NodePort has been created to allow access to the pods via IP address or DNS name and port. To expose the services of Text Analytica for external access an ingress service was used. Next to application level load balancing – which at this point is not necessary for Text Analytica, as its services still all run within a single container – ingress can for example be used for SSL / TLS termination. Next to the ingress service an NGINX ingress controller is deployed as a pod to each node. The ingress service is of type LoadBalancer, which leads Azure to create and configure an Azure Load Balancer resource with a corresponding external IP address.
+To make the pods containing the containerized application available to the public several network measures are in place \cite{AKSNetworks} \cite{AzureExposeKubernetesCluster}. First, a Kubernetes service of type \textit{NodePort} has been created to allow access to the pods via IP address or DNS name and port. To expose the services of Text Analytica for external access an \textit{ingress service} was used. Next to application level load balancing – which at this point is not necessary for Text Analytica, as its services still all run within a single container – ingress can for example be used for SSL / TLS termination. Next to the ingress service an \textit{NGINX ingress controller} is deployed as a pod to each node. The ingress service is of type \textit{LoadBalancer}, which leads Azure to create and configure an \textit{Azure Load Balancer} resource with a corresponding external IP address.
 
 \subsection{Data storage}
-As mentioned in [section limitations] currently the only user data stored by Text Analytica are the results of the analysis and related metadata. This data is combined into a json object and sent to the Cosmos DB.
+As mentioned in \Cref{subsec:limits} currently the only user data stored by Text Analytica are the results of the analysis and related metadata. This data is combined into a json object and sent to the Cosmos DB.
 
-Cosmos DB is a “globally-distributed, multi-model database” \cite{CosmosDB}. It was chosen for this project, because it is very easy to set up from the Azure portal, is fully managed and scaled by Azure and can be treated like a MongoDB in development using an API \cite{CosmosMongoDB}.
+Cosmos DB is a \textit{“globally-distributed, multi-model database”} \cite{CosmosDB}. It was chosen for this project, because it is very easy to set up from the Azure portal, is fully managed and scaled by Azure and can be treated like a MongoDB in development using an API \cite{CosmosMongoDB}.
 
 To provide persistent storage not affected by dying and restarting containers, the database is decoupled from the Kubernetes cluster.
 
@@ -136,11 +138,10 @@ In case we will reach the point our web application gets more and more famous, a
 As mentioned in \Cref{sec:system-architecture} all services are managed by the Kubernetes cluster.
 The main advantage of using a Kubernetes cluster is scalability and loadbalancing. So if there is a high usage of the
 existing resources the cluster can scale up by itself. In our case this might happen at peak times when a lot of people
-are using the Text Analytica web service. Than the cluster creates more (TODO:  describe more carefully what exactly happens here)
-\cite{MicrosoftAzureKubernetesService}.
+are using the Text Analytica web service. Than the cluster creates more pods or \textit{Azure VM Nodes}, to handle the additional work without losing performance \cite{MicrosoftAzureKubernetesService}.
 
 As we are using \textit{Virtual Kubelets}, we can achieve even faster up- and downscaling times
-than with the pure Kubernetes cluster itself. This is due to the fact we do not need to wait on new VMs or container booting up (TODO: check this).
+than with the pure Kubernetes cluster itself. This is due to the fact we do not need to wait on new VMs as already explained in \Cref{subsec:infra}.
 \cite{MicrosoftVirtualNode}.
 
 \subsection{Data storage}
