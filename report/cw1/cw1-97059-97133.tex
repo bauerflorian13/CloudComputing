@@ -122,6 +122,11 @@ The data in the database is shielded from unwanted access, as it is only accessi
 
 •	We used Azure Devops to setup a continuous delivery pipeline to adapt the concept of DevOps. If new code is pushed to the git repository of text analytica, then a new docker container is built automatically and pushed to the docker hub registry. Afterwards the updated containers are applied onto the AKS cluster. The described steps are performed by an Azure pipeline, a service of Azure devops to create build pipelines.
 
+\begin{figure*}[ht!]
+\includegraphics[width=170mm]{img/Kubernetes_Dashboard.png}
+\caption{Kubernetes Dashboard}
+\label{img:kubernetes-dashboard}
+\end{figure*}
 
 \section{Scalability}
 \label{sec:scalability}
@@ -152,12 +157,6 @@ than with the pure Kubernetes cluster itself. This is due to the fact we do not 
 To know how good a cloud application scales with an increasing amount of work respectively more users a load test is perfect for. We used the \textit{Azure Loadtest}, as this is an inbuild tool of the Azure Cloud Services and works efficiently for our usecase.
 
 In \Cref{img:loadtesting} are the results of one of our load tests. In the figure there are four diagrams, for \textit{Performance}, \textit{Throughput}, \textit{Errors} and \textit{Tests}. This test lasted ten minutes and involved 700 virtual users. In the \textit{Errors} diagram can be seen there is no error, which means our application still works even under high usage. In the \textit{Performance} part there is the increasing user load and the increasing average response time as well as average page time. It follows our application has a good scaling rate, as the response time scales nearly linear with a fast performance. The \textit{Throughput} figure shows the pages/sec and requests/sec with increasing user load, and \textit{Tests} simply shows the tests/sec andaverage test time.
-
-\begin{figure*}[ht!]
-\includegraphics[width=170mm]{img/Kubernetes_Dashboard.png}
-\caption{Kubernetes Dashboard}
-\label{img:kubernetes-dashboard}
-\end{figure*}
 
 A useful tool for monitoring the Kubernetes cluster is the \textit{Kubernetes Dashboard}, which can be seen in \Cref{img:kubernetes-dashboard}. Here all important ressources can be watched , e.g. number of working pods, CPU usage and memory usage. For debugging and in case of errors this tool can be really helpfull.
 
