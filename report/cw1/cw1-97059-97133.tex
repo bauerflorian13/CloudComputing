@@ -146,7 +146,7 @@ than with the pure Kubernetes cluster itself. This is due to the fact we do not 
 \subsection{Data storage}
 The cloud application Text Analytica uses as storage an instance of Azure's \textit{Cosmos DB}. In the following part of this section we are discussing the scalability and consequently the regions and kinds of partitions of this database and what this means for our application.
 
-There are two kinds of partitioning in \textit{Comsos DB}: The logical partition, where all datasets or elements in a container have a similar property. Here the data itself and the data throughput is automatically, horizontaly partitioned and scaled by Cosmos DB. Then there are the physical partitions. A number of logical partitions are assigned to one physical partition, which guarantees percistency and concistency of the data \cite{CosmosDBHorScal}.
+There are two kinds of partitioning in \textit{Cosmos DB}: The logical partition, where all datasets or elements in a container have a similar property. Here the data itself and the data throughput is automatically, horizontally partitioned and scaled by Cosmos DB. Then there are the physical partitions. A number of logical partitions are assigned to one physical partition, which guarantees persistence and consistency of the data \cite{CosmosDBHorScal}.
 
 It is possible to configure \textit{Cosmos DB} with multiple regions, which leads to a high availability as well (up to $99,999\%$)\cite{CosmosDBHA}.
 
@@ -159,11 +159,11 @@ This workflow of creating more containers if there are more needed is called \te
 \cite{KubernetesAutoscaler}
 
 \subsection{Monitoring and Load Testing}
-To know how good a cloud application scales with an increasing amount of work respectively more users a load test is perfect for. We used the \textit{Azure Loadtest}, as this is an inbuild tool of the Azure Cloud Services and works efficiently for our usecase.
+To know how good a cloud application scales with an increasing amount of work respectively more users a load test is perfect for. We used the \textit{Azure Loadtest}, as this is an inbuild tool of the Azure Cloud Services and works efficiently for our use case.
 
-In \Cref{img:loadtesting} are the results of one of our load tests. In the figure there are four diagrams, for \textit{Performance}, \textit{Throughput}, \textit{Errors} and \textit{Tests}. This test lasted ten minutes and involved 700 virtual users. In the \textit{Errors} diagram can be seen there is no error, which means our application still works even under high usage. In the \textit{Performance} part there is the increasing user load and the increasing average response time as well as average page time. It follows our application has a good scaling rate, as the response time scales nearly linear with a fast performance. The \textit{Throughput} figure shows the pages/sec and requests/sec with increasing user load, and \textit{Tests} simply shows the tests/sec andaverage test time.
+In \Cref{img:loadtesting} are the results of one of our load tests. In the figure there are four diagrams, for \textit{Performance}, \textit{Throughput}, \textit{Errors} and \textit{Tests}. This test lasted ten minutes and involved 700 virtual users. In the \textit{Errors} diagram can be seen there is no error, which means our application still works even under high usage. In the \textit{Performance} part there is the increasing user load and the increasing average response time as well as average page time. It follows our application has a good scaling rate, as the response time scales nearly linear with a fast performance. The \textit{Throughput} figure shows the pages/sec and requests/sec with increasing user load, and \textit{Tests} simply shows the tests/sec and average test time.
 
-A useful tool for monitoring the Kubernetes cluster is the \textit{Kubernetes Dashboard}, which can be seen in \Cref{img:kubernetes-dashboard}. Here all important ressources can be watched , e.g. number of working pods, CPU usage and memory usage. For debugging and in case of errors this tool can be really helpfull.
+A useful tool for monitoring the Kubernetes cluster is the \textit{Kubernetes Dashboard}, which can be seen in \Cref{img:kubernetes-dashboard}. Here all important resources can be watched , e.g. number of working pods, CPU usage and memory usage. For debugging and in case of errors this tool can be really helpful.
 
 \section{Future improvements}
 \label{sec:future-improvments}
