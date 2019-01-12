@@ -40,16 +40,16 @@ Text Analytica is a cloud-based web service for document analysis. The prototype
 
 \section{Introduction}
 \label{sec:intro}
-Text Analytica is a cloud-based web service aiming to support the analysis of text documents. For the purpose of this coursework a prototype has been developed, deployed and evaluated using different cloud computing technologies. In the remainder of this section, the concept of Text Analytica is discussed as well as the limitations of the implemented prototype. \Cref{sec:platform-choice} explores the reasons for choosing Microsoft’s cloud services over Oracle’s. Afterwards in \Cref{sec:system-architecture} the system architecture and technologies used for the project are explained in more detail. Different aspects of the service’s scalability are addressed in \Cref{sec:scalability}, including evidence of the performance of the service under load. Lastly future improvements of Text Analytica are proposed in \Cref{sec:future-improvements}.
+Text Analytica is a cloud-based web service aiming to support the analysis of text documents. For the purpose of this coursework a prototype has been developed, deployed and evaluated using different cloud computing technologies. In the remainder of this section, the concept of Text Analytica is discussed as well as the limitations of the implemented prototype. \Cref{sec:platform-choice} explores the reasons for choosing Microsoft's cloud services over Oracle's. Afterwards in \Cref{sec:system-architecture} the system architecture and technologies used for the project are explained in more detail. Different aspects of the service's scalability are addressed in \Cref{sec:scalability}, including evidence of the performance of the service under load. Lastly future improvements of Text Analytica are proposed in \Cref{sec:future-improvements}.
 
 \begin{figure*}[ht!]
 \includegraphics[width=150mm]{img/architectur.png}
-\caption{Text Analytica’s system architecture: The main components of the system are a Kubernetes cluster based on AKS, orchestrating the containers running Text Analytica and a \textit{Microsoft Cosmos DB}, storing the results of the analysis. Each container is encapsulated by its own Kubernetes Pod. The images to build new containers can be pulled from the \textit{Docker Hub} container registry. Azure monitoring is used to monitor the health of the cluster and its components. The Kubernetes cluster is exposed for external access through an \textit{Azure Load Balancer}.}
+\caption{Text Analytica's system architecture: The main components of the system are a Kubernetes cluster based on AKS, orchestrating the containers running Text Analytica and a \textit{Microsoft Cosmos DB}, storing the results of the analysis. Each container is encapsulated by its own Kubernetes Pod. The images to build new containers can be pulled from the \textit{Docker Hub} container registry. Azure monitoring is used to monitor the health of the cluster and its components. The Kubernetes cluster is exposed for external access through an \textit{Azure Load Balancer}.}
 \label{img:architecture}
 \end{figure*}
 
 \subsection{Vision}
-University students are often faced with an abundance of resources regarding specific units or even certain topics within a unit. These range from lecture notes or slides to personal notes and additional scientific papers as well as e-books or extracts thereof. The first step in the exploration process is for students to familiarise themselves with these materials by identifying the documents’ key aspects and discovering links between different sources. This is what Text Analytica ultimately aims to facilitate.
+University students are often faced with an abundance of resources regarding specific units or even certain topics within a unit. These range from lecture notes or slides to personal notes and additional scientific papers as well as e-books or extracts thereof. The first step in the exploration process is for students to familiarise themselves with these materials by identifying the documents' key aspects and discovering links between different sources. This is what Text Analytica ultimately aims to facilitate.
 
 More specifically the functionalities of Text Analytica could include tagging, keyword search, suggestions of related documents based on textual analysis and eventually the generation of short summaries, all based on user-supplied PDF documents. These functionalities render Text Analytica a useful tool for many scenarios in which people are confronted with a large number of different and possibly complex text sources, e.g. in the context of management decisions in industry or business / commerce.
 
@@ -74,11 +74,11 @@ Another inconvenience of \textit{Oracle Cloud} is the unstructured and inconsist
 Working with one of \textit{"the big three"} providers of cloud computing, that is \textit{Google Cloud}, \textit{Amazon Web Services} or \textit{Microsoft Azure} comes with considerable advantages, when it comes to documentation and support. Not only are there large numbers of tutorials, answered questions on \textit{Stackoverflow} and blog articles on their technologies, but they also come with very comprehensive documentations. The number of tutorials using Oracle's cloud services, however, was relatively small, making it difficult for beginners to get started. When running example code we encountered quite a few errors and bugs, but searching for solutions to these issues for example with \textit{Terraform} and \textit{Oracle Cloud} was often unsuccessful.
 
 \subsection{Scalability}
-In addition to the advantages mentioned in \Cref{subsec:setup} and \Cref{subsec:docandsupport} there are is one more reason why we decided to migrate the project to \textit{Azure}. It offers the possibility to create \textit{virtual nodes} based on \textit{Virtual Kubelets}\cite{VirtualKubelet}, enabling faster scaling. A more detailed explanation of this technology is given in \Cref{sec:system-architecture}.
+In addition to the advantages mentioned in \Cref{subsec:setup} and \Cref{subsec:docandsupport} there is one more reason why we decided to migrate the project to \textit{Azure}. It offers the possibility to create \textit{virtual nodes} based on \textit{Virtual Kubelets}\cite{VirtualKubelet}, enabling faster scaling. A more detailed explanation of this technology is given in \Cref{sec:system-architecture}.
 
 \section{System architecture and service implementation}
 \label{sec:system-architecture}
-\Cref{img:architecture} shows the architecture of the implemented system, which is discussed in the first two parts of this section in more detail. Text Analytica’s two main components are a Kubernetes cluster, managed by the \textit{Azure Kubernetes Service} (AKS) \cite{AKS} and an \textit{Azure Cosmos DB} \cite{CosmosDB}, storing the results of the analysis. In the last part of this section, the implementation of the service and the continuous integration pipeline used to deploy the application are presented.
+\Cref{img:architecture} shows the architecture of the implemented system, which is discussed in the first two parts of this section in more detail. Text Analytica's two main components are a Kubernetes cluster, managed by the \textit{Azure Kubernetes Service} (AKS) \cite{AKS} and an \textit{Azure Cosmos DB} \cite{CosmosDB}, storing the results of the analysis. In the last part of this section, the implementation of the service and the continuous integration pipeline used to deploy the application are presented.
 
 \begin{figure*}[ht!]
 \includegraphics[width=170mm]{img/loadtest_01.png}
@@ -88,11 +88,11 @@ In addition to the advantages mentioned in \Cref{subsec:setup} and \Cref{subsec:
 
 \subsection{Infrastructure}
 \label{subsec:infra}
-Text Analytica’s front-end, back-end and analysis service are currently run within a single Docker container. Container orchestration is handled by a Kubernetes cluster managed by AKS, where each container is encapsulated by a Kubernetes Pod. When a new Pod is started up the corresponding container is created from a container image pulled from the container registry \textit{Docker Hub} \cite{DockerHub}.
+Text Analytica's front-end, back-end and analysis service are currently run within a single Docker container. Container orchestration is handled by a Kubernetes cluster managed by AKS, where each container is encapsulated by a Kubernetes Pod. When a new Pod is started up the corresponding container is created from a container image pulled from the container registry \textit{Docker Hub} \cite{DockerHub}.
 
 The Kubernetes master node, responsible for the cluster operation, is fully managed by AKS. In addition to the master node the cluster consists of two worker nodes. The first one is based on a general purpose Linux VM, while the second is implemented as a virtual node based on \textit{Azure Container Instances} (ACIs) \cite{AzureContainerInstances} and the \textit{Virtual Kubelet} open source project \cite{VirtualKubelet, VirtualKubeletGithub}. Kubernetes treats the ACIs compromising the virtual node like standard nodes, so new Pods can simply be provisioned on them. Based on container images, ACIs are ready to use in a few seconds as no virtual machines must be started up and managed by the user. In terms of service level, they could be described as “containers-as-a-service”.
 
-The cluster is monitored using \textit{Azure Monitor} \cite{AzureMonitor}, a collection of tools to monitor, query and log services and infrastructure running on Azure. It monitors the health of the cluster itself, its nodes and the running services and containers. 
+The cluster is monitored using \textit{Azure Monitor} \cite{AzureMonitor}, a collection of tools to monitor, query and log services and infrastructure running on Azure. It monitors the health of the cluster itself, its nodes and the running services and containers.
 
 To make the Pods containing the containerised application available to the public several network measures are in place \cite{AKSNetworks, AzureExposeKubernetesCluster}. First, a Kubernetes service of type \textit{NodePort} has been created to allow access to the Pods via IP address or DNS name and port. To expose the services of Text Analytica for external access an ingress service was used. Next to application level load balancing – which at this point is not necessary for Text Analytica, as its services still all run within a single container – ingress can for example be used for SSL / TLS termination. Next to the ingress service an NGINX ingress controller is deployed as a Pod to each node. The ingress service is of type \textit{LoadBalancer}, which leads Azure to create and configure an \textit{Azure Load Balancer} resource with a corresponding external IP address.
 
@@ -106,16 +106,16 @@ To provide persistent storage not affected by dying and restarting containers, t
 The data in the database is shielded from unwanted access, as it is only accessible from the virtual network in which the Kubernetes cluster is hosted.
 
 \subsection{Service implementation}
-Text Analytica’s back-end and the analysis functionality are programmed in Python. The back-end uses the Flask framework, which is a web development microframework \cite{Flask}. While the implementation of the back-end is based on several online resources such as tutorials and videos \cite{FlaskOnKubernetes, FlaskVue, FlaskMongo}, the front-end is based on a template using Vue.js and Bootstrap \cite{Bootstrap}.
+Text Analytica's back-end and the analysis functionality are programmed in Python. The back-end uses the Flask framework, which is a web development microframework \cite{Flask}. While the implementation of the back-end is based on several online resources such as tutorials and videos \cite{FlaskOnKubernetes, FlaskVue, FlaskMongo}, the front-end is based on a template using Vue.js and Bootstrap \cite{Bootstrap}.
 
-To enhance the deployment of the webservice, a continuous delivery pipeline, in this case an \textit{Azure Pipeline} \cite{AzurePipeline}, was created. Whenever new code is pushed to Text Analytica’s GitHub repository, a new Docker container image is built automatically using the Dockerfile and pushed to the Docker Hub registry. These new images are then pulled by the AKS cluster to start updated containers to run the service. The service used to build this \textit{Azure Pipeline} is part of \textit{Azure DevOps}.
+To enhance the deployment of the webservice, a continuous delivery pipeline, in this case an \textit{Azure Pipeline} \cite{AzurePipeline}, was created. Whenever new code is pushed to Text Analytica's GitHub repository, a new Docker container image is built automatically using the Dockerfile and pushed to the Docker Hub registry. These new images are then pulled by the AKS cluster to start updated containers to run the service. The service used to build this \textit{Azure Pipeline} is part of \textit{Azure DevOps}.
 
 \section{Scalability}
 \label{sec:scalability}
 In a production environment, the number of Text Analytica users is expected to grow. As discussed in the lecture, sudden bursts in usage can sometimes not be foreseen \cite{Animoto}. Therefore, it was crucial to pay attention to the scalability of the application, to ensure a smooth and fast user experience independent of the number of parallel accesses. The application was built to handle an unknown number of users uploading and analysing files in parallel without running into errors or significant performance bottlenecks. In the remainder of this section it is discussed how this issue was addressed and results of one load test is shown.
 
 \subsection{Infrastructure}
-As mentioned in \Cref{sec:system-architecture} the web service is managed by a Kubernetes cluster. The main advantages of using a Kubernetes cluster are easy scalability and load balancing. More specifically, if usage of existing resources is high, the cluster will automatically scale \cite{KubernetesScaling, KubernetesAutoscaler}. In Text Analytica’s case this might happen at peak times when a lot of people are using the Text Analytica web service. The cluster will then spawn more \textit{Pods} on the existing \textit{Azure VM Node}, to handle the additional workload without sacrificing performance \cite{MicrosoftAzureKubernetesService}.
+As mentioned in \Cref{sec:system-architecture} the web service is managed by a Kubernetes cluster. The main advantages of using a Kubernetes cluster are easy scalability and load balancing. More specifically, if usage of existing resources is high, the cluster will automatically scale \cite{KubernetesScaling, KubernetesAutoscaler}. In Text Analytica's case this might happen at peak times when a lot of people are using the Text Analytica web service. The cluster will then spawn more \textit{Pods} on the existing \textit{Azure VM Node}, to handle the additional workload without sacrificing performance \cite{MicrosoftAzureKubernetesService}.
 
 When the \textit{Azure VM Node} is used to capacity new Pods are provisioned based on \textit{Virtual Kubelets} on a \textit{virtual node}. On the one hand this allows the application to start up new Pods faster, as there is no need to wait on new VMs being booted up as already explained in \Cref{subsec:infra}, on the other hand this enables “infinite” scaling as there is no capacity limit for a virtual node based on ACIs. Due to higher prices this option should, however, not be used permanently and in case of observing lasting high usage, more traditional VM-based nodes should be provisioned.
 
@@ -133,14 +133,14 @@ A useful tool for monitoring the Kubernetes cluster is the \textit{Kubernetes Da
 
 \section{Future improvements}
 \label{sec:future-improvements}
-As mentioned before, because of the time frame proposed for the development of this coursework project and especially due to initial issues with Oracle’s cloud services, the submitted version of Text Analytica is just a prototype. Therefore there are some improvements on different levels, which are discussed in this section.
+As mentioned before, because of the time frame proposed for the development of this coursework project and especially due to initial issues with Oracle's cloud services, the submitted version of Text Analytica is just a prototype. Therefore there are some improvements on different levels, which are discussed in this section.
 
 \subsection{Infrastructure}
 At the moment, as Text Analytica has not much functionality, all of it is run on one container. To allow more specific scaling of certain parts of the application, the services should be split up into microservices, each running on its own container. Based on the current implementation the functionality could be split up into back-end, front-end and analysis. Not only would this separation allow for a more specific scaling of the services, but it would also allow to implement ingress rules, so that the ingress can be used as an application layer load balancer.
 
 Another way to optimise Text Analytica would be improved management of the Kubernetes cluster itself. There are several popular open source projects, such as Istio, which can be used to efficiently manage a mesh of microservices \cite{Istio}.
 
-A more drastic change to the system architecture would be the shift to serverless, implementing the different services as \textit{Azure functions} for example \cite{AzureFunctions}. Instead of the current IaaS approach, where some set up and maintenance has to be done by the user, this would mean using Azure’s services on a PaaS level, allowing developers to focus on the application’s functionality, while provisioning of resources and scaling is handled completely automatically by Azure.
+A more drastic change to the system architecture would be the shift to serverless, implementing the different services as \textit{Azure functions} for example \cite{AzureFunctions}. Instead of the current IaaS approach, where some set up and maintenance has to be done by the user, this would mean using Azure's services on a PaaS level, allowing developers to focus on the application's functionality, while provisioning of resources and scaling is handled completely automatically by Azure.
 
 \subsection{Service implementation}
 As the focus of this coursework assignment was the application of cloud technologies and optimising the application for scaling, there are quite a few improvements on the service implementation level to be made in the future.
@@ -155,7 +155,7 @@ Lastly the existing continuous delivery pipeline could be extended for example b
 \label{sec:conclusion}
 conclusion...
 
-\bibliographystyle{acm}
+\bibliographystyle{IEEEtran}
 \bibliography{cw1-97059-97133}
 
 
