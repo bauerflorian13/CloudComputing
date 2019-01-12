@@ -132,13 +132,13 @@ The data in the database is shielded from unwanted access, as it is only accessi
 
 \section{Scalability}
 \label{sec:scalability}
-In case we will reach the point our web application gets more and more famous, and will be used more often the scalability of the application has a huge impact on the software experience and loading times. To build a good cloud application it should handle an unknown number of users parallel uploading and analyzing files without running into errors or bigger performance bottlenecks. In the rest of this section we discuss how we created a scalable cloud application and show results of some load tests.
+In case we will reach the point the web application gets more and more famous, and will be used more often the scalability of the application has a huge impact on the software experience and loading times. To build a good cloud application it should handle an unknown number of users parallel uploading and analyzing files without running into errors or bigger performance bottlenecks. In the rest of this section we discuss the creation of a scalable cloud application and show results of some load tests.
 
 \subsection{Infrastructure}
 As mentioned in \Cref{sec:system-architecture} all services are managed by the Kubernetes cluster.
 The main advantage of using a Kubernetes cluster is scalability and loadbalancing. So if there is a high usage of the
 existing resources the cluster can scale up by itself. In our case this might happen at peak times when a lot of people
-are using the Text Analytica web service. Than the cluster creates more pods or \textit{Azure VM Nodes}, to handle the additional work without losing performance \cite{MicrosoftAzureKubernetesService}.
+are using the Text Analytica web service. Than the cluster creates more \textit{Pods} or \textit{Azure VM Nodes}, to handle the additional work without losing performance \cite{MicrosoftAzureKubernetesService}.
 
 As we are using \textit{Virtual Kubelets}, we can achieve even faster up- and downscaling times
 than with the pure Kubernetes cluster itself. This is due to the fact we do not need to wait on new VMs as already explained in \Cref{subsec:infra}.
@@ -162,9 +162,9 @@ This workflow of creating more containers if there are more needed is called \te
 \subsection{Monitoring and Load Testing}
 To know how good a cloud application scales with an increasing amount of work respectively more users a load test is perfect for. We used the \textit{Azure Loadtest}, as this is an inbuild tool of the Azure Cloud Services and works efficiently for our use case.
 
-In \Cref{img:loadtesting} are the results of one of our load tests. In the figure there are four diagrams, for \textit{Performance}, \textit{Throughput}, \textit{Errors} and \textit{Tests}. This test lasted ten minutes and involved 700 virtual users. In the \textit{Errors} diagram can be seen there is no error, which means our application still works even under high usage. In the \textit{Performance} part there is the increasing user load and the increasing average response time as well as average page time. It follows our application has a good scaling rate, as the response time scales nearly linear with a fast performance. The \textit{Throughput} figure shows the pages/sec and requests/sec with increasing user load, and \textit{Tests} simply shows the tests/sec and average test time.
+In \Cref{img:loadtesting} there are the results of one of our load tests. In the figure there are four diagrams, for \textit{Performance}, \textit{Throughput}, \textit{Errors} and \textit{Tests}. This test lasted ten minutes and involved 700 virtual users. In the \textit{Errors} diagram can be seen there is no error, which means our application still works even under high usage. In the \textit{Performance} part there is the increasing user load and the increasing average response time as well as average page time. It follows our application has a good scaling rate, as the response time scales nearly linear with a fast performance. The \textit{Throughput} figure shows the pages/sec and requests/sec with increasing user load, and \textit{Tests} simply shows the tests/sec and average test time.
 
-A useful tool for monitoring the Kubernetes cluster is the \textit{Kubernetes Dashboard}, which can be seen in \Cref{img:kubernetes-dashboard}. Here all important resources can be watched , e.g. number of working pods, CPU usage and memory usage. For debugging and in case of errors this tool can be really helpful.
+A useful tool for monitoring the Kubernetes cluster is the \textit{Kubernetes Dashboard}, which can be seen in \Cref{img:kubernetes-dashboard}. Here all important resources can be watched , e.g. number of working pods, CPU usage and memory usage. For debugging and in case of errors this tool was really helpful.
 
 \section{Future improvements}
 \label{sec:future-improvements}
