@@ -80,12 +80,6 @@ In addition to the advantages mentioned in \Cref{subsec:setup} and \Cref{subsec:
 \label{sec:system-architecture}
 \Cref{img:architecture} shows the architecture of the implemented system, which is discussed in the first two parts of this section in more detail. Text Analytica's two main components are a Kubernetes cluster, managed by the \textit{Azure Kubernetes Service} (AKS) \cite{AKS} and an \textit{Azure Cosmos DB} \cite{CosmosDB}, storing the results of the analysis. In the last part of this section, the implementation of the service and the continuous integration pipeline used to deploy the application are presented.
 
-\begin{figure*}[ht!]
-\includegraphics[width=170mm]{img/loadtest_01.png}
-\caption{Results of a load test of the Kubernetes cluster. Most importantly from the \textit{Performance} chart it can be seen that Text Analytica's performance increases linearly when the number of users is increased. There is no significant loss in performance either.}
-\label{img:loadtesting}
-\end{figure*}
-
 \subsection{Infrastructure}
 \label{subsec:infra}
 Text Analytica's front-end, back-end and analysis service are currently run within a single Docker container. Container orchestration is handled by a Kubernetes cluster managed by AKS, where each container is encapsulated by a Kubernetes Pod. When a new Pod is started up the corresponding container is created from a container image pulled from the container registry \textit{Docker Hub} \cite{DockerHub}.
@@ -109,6 +103,12 @@ The data in the database is shielded from unwanted access, as it is only accessi
 Text Analytica's back-end and the analysis functionality are programmed in Python. The back-end uses the Flask framework, which is a web development microframework \cite{Flask}. While the implementation of the back-end is based on several online resources such as tutorials and videos \cite{FlaskOnKubernetes, FlaskVue, FlaskMongo}, the front-end is based on a template using Vue.js and Bootstrap \cite{Bootstrap}.
 
 To enhance the deployment of the webservice, a continuous delivery pipeline, in this case an \textit{Azure Pipeline} \cite{AzurePipeline}, was created. Whenever new code is pushed to Text Analytica's GitHub repository, a new Docker container image is built automatically using the Dockerfile and pushed to the Docker Hub registry. These new images are then pulled by the AKS cluster to start updated containers to run the service. The service used to build this \textit{Azure Pipeline} is part of \textit{Azure DevOps}.
+
+\begin{figure*}[ht!]
+\includegraphics[width=170mm]{img/loadtest_01.png}
+\caption{Results of a load test of the Kubernetes cluster. Most importantly from the \textit{Performance} chart it can be seen that Text Analytica's performance increases linearly when the number of users is increased. There is no significant loss in performance either.}
+\label{img:loadtesting}
+\end{figure*}
 
 \section{Scalability}
 \label{sec:scalability}
@@ -153,7 +153,11 @@ Lastly the existing continuous delivery pipeline could be extended for example b
 
 \section{Conclusion}
 \label{sec:conclusion}
-conclusion...
+In this report, Text Analytica, a cloud-based web service for text analysis, was presented. The application is hosted on \textit{Microsoft Azure} and utilises a range of cloud computing technologies on IaaS and PaaS level.
+
+The development of the project was described from the first conceptual vision to the implementation and testing of a fully functional prototype, based on Docker containers orchestrated by a Kubernetes cluster and an \textit{Azure Cosmos DB}. The discussion included elaborating on the platform choice, system architecture and scalability aspects. The results of a relatively simple load test, measuring the performance of the application under a high number of parallel site accesses, suggest Text Analytica is well suited for scaling.
+
+Improvements to enhance the submitted prototype and eventually develop it into a production grade application, have been suggested.
 
 \bibliographystyle{IEEEtran}
 \bibliography{cw1-97059-97133}
